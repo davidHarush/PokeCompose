@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Pokemon" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/deepblue</item>
+    </style>
+
+
+    <style name="SplashScreenTheme" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenBackground">@color/deepblue</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/deepblue</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/pikachu</item>
+       <item name="postSplashScreenTheme">@style/Theme.Pokemon</item>
+    </style>
+
+</resources>
+
