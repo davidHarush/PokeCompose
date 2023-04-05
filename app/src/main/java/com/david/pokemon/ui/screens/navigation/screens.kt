@@ -6,15 +6,15 @@ import com.david.pokemon.ui.theme.TabsIconColor
 
 
 sealed class Screen(var title: String, var icon: Int, var route: String, var iconColor: Color) {
-
     companion object {
-        fun isNeedToHideTabs(route: String): Boolean  =
+        fun isNeedToHideTabs(route: String): Boolean =
             route.startsWith(Detail.route) || route.startsWith(Search.route)
 
-        fun isNeedToShowSearchBar(route: String): Boolean  =
+        fun isNeedToShowSearchBar(route: String): Boolean =
             route.startsWith(Main.route) || route.startsWith(Search.route)
 
     }
+
     object Main : Screen(
         route = "main_screen",
         title = "Main",
@@ -22,13 +22,14 @@ sealed class Screen(var title: String, var icon: Int, var route: String, var ico
         iconColor = TabsIconColor.main
 
     )
+
     object Detail : Screen(
         route = "detail_screen",
         title = "Details",
         icon = R.drawable.ic_info,
         iconColor = TabsIconColor.main
-
     )
+
     object Setting : Screen(
         route = "setting_screen",
         title = "Setting",
@@ -42,6 +43,7 @@ sealed class Screen(var title: String, var icon: Int, var route: String, var ico
         icon = R.drawable.ic_favorite,
         iconColor = TabsIconColor.favorites
     )
+
     object Search : Screen(
         route = "Search_screen",
         title = "Search",
@@ -56,5 +58,4 @@ sealed class Screen(var title: String, var icon: Int, var route: String, var ico
                 append("/$arg")
             }
         }.toString()
-
 }

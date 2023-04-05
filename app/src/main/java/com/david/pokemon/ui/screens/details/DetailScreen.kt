@@ -1,5 +1,6 @@
 package com.david.pokemon.ui.screens.details
 
+
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
@@ -28,7 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.*
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
 import com.david.pokemon.UiState
 import com.david.pokemon.dommain.PokeCharacter
@@ -38,27 +39,12 @@ import com.david.pokemon.dommain.getImage
 import com.david.pokemon.ui.theme.*
 import kotlinx.coroutines.delay
 
-
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.palette.graphics.Palette
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
-
 @Composable
 fun DetailScreen(
-    navController: NavHostController,
     detailsViewModel: DetailsViewModel = hiltViewModel(),
-    pokeCoreData: PokeCoreDataCharacter
+    pokeCoreData: PokeCoreDataCharacter,
 ) {
     val pokeState = detailsViewModel.pokeState.collectAsStateWithLifecycle()
-    val imageState =  detailsViewModel.viewState.collectAsStateWithLifecycle()
-
-    ImagePreviewScreen(detailsViewModel)
 
     Box(
         modifier = Modifier
@@ -68,16 +54,15 @@ fun DetailScreen(
     )
     {
         Column {
-
             if (pokeState.value is UiState.Success) {
                 val character = (pokeState.value as UiState.Success).data
                 HeaderData(pokeCoreData = pokeCoreData)
-//                DetailData(character)
+                DetailData(character)
                 Spacer(modifier = Modifier.width(24.dp))
                 StatData((pokeState.value as UiState.Success).data.stats)
                 HeartCard()
             } else {
-                HeaderData(pokeCoreData = pokeCoreData )
+                HeaderData(pokeCoreData = pokeCoreData)
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -222,7 +207,7 @@ fun colorMapper(statName: String) =
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun DetailCard(
-    content: @Composable ColumnScope.() -> Unit
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     return AnimatedContent(targetState = false) {
         Card(
@@ -314,63 +299,3 @@ fun HeartImage() {
         )
     }
 }
-
-@Composable
-private fun ImagePreviewScreen(detailsViewModel: DetailsViewModel) {
-
-    val viewState =  detailsViewModel.viewState.collectAsStateWithLifecycle()
-
-    fun Palette.Swatch.rgbAsColor(): Color = Color(rgb)
-
-    val systemUiController = rememberSystemUiController()
-
-    LaunchedEffect(key1 = viewState.value.colorPalette) {
-        val systemStatusBarColor = viewState.value.colorPalette?.darkVibrantSwatch?.rgbAsColor() ?: Color.White
-        systemUiController.setSystemBarsColor(systemStatusBarColor)
-    }
-
-}
-
-
-//
-//
-//@Composable
-//fun NetworkImage(character: PokeCoreDataCharacter) {
-//    val dominantColor = MutableLiveData<Color>()
-//
-//    LaunchedEffect(character.getImage()) {
-//        withContext(Dispatchers.IO) {
-//            val inputStream = URL(character.getImage()).openStream()
-//            val bitmap = BitmapFactory.decodeStream(inputStream)
-//            val colors = mutableListOf<Int>()
-//            for (x in 0 until bitmap.width) {
-//                for (y in 0 until bitmap.height) {
-//                    val pixel = bitmap.getPixel(x, y)
-//                    colors.add(pixel)
-//                }
-//            }
-//            val mostCommonColor = colors.groupingBy { it }.eachCount().maxByOrNull { it.value }?.key ?: 0
-//            val color = Color(mostCommonColor)
-//            dominantColor.postValue(color)
-//        }
-//    }
-//
-//    val color  = rememberUpdatedState(dominantColor.value)
-//
-//    Box(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .height(250.dp).background(color.value ?: DeepBlue)
-//    ) {
-//        Image(
-//            painter = rememberImagePainter(
-//                data = character.getImage(),
-//                builder = {
-//                    crossfade(true)
-//                }
-//            ),
-//            contentDescription = null,
-//            modifier = Modifier.size(250.dp),
-//        )
-//    }
-//}

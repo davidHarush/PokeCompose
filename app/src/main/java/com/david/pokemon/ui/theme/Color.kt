@@ -21,7 +21,8 @@ object PokeStatColor {
     val speed = Color(0xFF512DA8)
     val hp = Color(0xFF388E3C)
 }
-object TabsIconColor{
+
+object TabsIconColor {
     val main = Color(0xFF03A9F4)
     val favorites = Color(0xFFF44336)
     val settings = Color(0xFF009688)  //700

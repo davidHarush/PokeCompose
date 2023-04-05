@@ -3,30 +3,18 @@ package com.david.pokemon.dommain
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import kotlinx.coroutines.CoroutineScope
 
 class PokePagingSource(
-    private val viewModelScope: CoroutineScope,
-    private val pagingRepo: PokemonRepo
+    private val pagingRepo: PokemonRepo,
 ) :
     PagingSource<Int, PokeCoreDataCharacter>() {
-
-
     override fun getRefreshKey(state: PagingState<Int, PokeCoreDataCharacter>): Int? {
-        Log.i("ddddddPaging", "getRefreshKey ")
-
-        val key =  state.anchorPosition?.let { anchorPosition ->
-            Log.i("ddddddPaging", "anchorPosition: "+ state.anchorPosition.toString())
-            Log.i("ddddddPaging", "prevKey: "+  state.closestPageToPosition(anchorPosition)?.prevKey.toString())
-            Log.i("ddddddPaging", "nextKey: "+ state.closestPageToPosition( anchorPosition)?.nextKey.toString())
-
+        val key = state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition = anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition = anchorPosition)?.nextKey?.minus(
                     other = 1
                 )
         }
-
-
         return key
     }
 
@@ -39,16 +27,10 @@ class PokePagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PokeCoreDataCharacter> {
 
         return try {
-
             val page = params.key ?: 0
-
             val offset = page * 20
             val response = pagingRepo.getPokemonList(offset = offset)
-//            val response = pagingRepo.getPage(page = page)
-
-
             val pokeList = arrayListOf<PokeCoreDataCharacter>()
-
             response.collect {
                 it.forEach { poke ->
 
@@ -64,8 +46,6 @@ class PokePagingSource(
             val nextKey = page + 1
             val prevKey = if (page == 0) null else page.minus(1)
 
-
-
             LoadResult.Page(
                 data = pokeList,
                 prevKey = prevKey,
@@ -73,7 +53,7 @@ class PokePagingSource(
             )
 
         } catch (e: Exception) {
-            Log.e("ddddddPaging", "err", e)
+            Log.e("PokePagingSource", "err", e)
             LoadResult.Error(throwable = e)
         }
     }

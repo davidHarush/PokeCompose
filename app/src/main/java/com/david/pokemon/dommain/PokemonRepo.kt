@@ -1,17 +1,15 @@
 package com.david.pokemon.dommain
 
-import android.util.Log
 import com.david.pokemon.data.IPokeApiService
-import com.david.pokemon.data.mod.Result
-import com.david.pokemon.data.mod.getId
+import com.david.pokemon.data.module.Result
+import com.david.pokemon.data.module.getId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 
 class PokemonRepo @Inject constructor(
-    private val api: IPokeApiService
+    private val api: IPokeApiService,
 ) {
 
     suspend fun getPokemonList(offset: Int = 0): Flow<ArrayList<PokeCoreDataCharacter>> = flow {
@@ -19,11 +17,15 @@ class PokemonRepo @Inject constructor(
         emit(convertPokemonList(re.results))
     }
 
-
     private suspend fun convertPokemonList(results: List<Result>): ArrayList<PokeCoreDataCharacter> {
         val list = arrayListOf<PokeCoreDataCharacter>()
         results.forEachIndexed { _, character ->
-            list.add(PokeCoreDataCharacter(id = character.getId(), name = character.name.capitalize()))
+            list.add(
+                PokeCoreDataCharacter(
+                    id = character.getId(),
+                    name = character.name.capitalize()
+                )
+            )
         }
 
         return list
@@ -44,7 +46,6 @@ class PokemonRepo @Inject constructor(
         )
         emit(character)
     }
-
 
 
 }

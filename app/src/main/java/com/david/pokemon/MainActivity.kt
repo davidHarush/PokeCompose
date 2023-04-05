@@ -17,60 +17,18 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val splashScreen = installSplashScreen()
-//        splashScreen.setKeepOnScreenCondition {
-//            for (i in 0..8000) {
-//
-//            }
-//            false
-//        }
+        installSplashScreen()
 
         setContent {
             PokemonTheme {
-
                 val systemUiController = rememberSystemUiController()
                 val navController = rememberNavController()
                 systemUiController.apply {
                     setStatusBarColor(color = DeepBlue, darkIcons = false)
                     setNavigationBarColor(color = DeepBlue, darkIcons = false)
                 }
-
                 Navigation(navController)
             }
         }
     }
-
-
-//@Composable
-//fun Navigation(navController: NavHostController) {
-//    NavHost(navController = navController, startDestination = ScreenDestination.Main.route) {
-//
-//        composable(route = ScreenDestination.Main.route) {
-//            MainScreen(navController = navController)
-//        }
-//
-//        composable(
-//            route = ScreenDestination.Detail.route + "/{name}/{id}", arguments = listOf(
-//                navArgument("name") {
-//                    type = NavType.StringType
-//                    nullable = false
-//                },
-//                navArgument("id") {
-//                    type = NavType.StringType
-//                    nullable = false
-//                })
-//        )
-//        { navBackStackEntry ->
-//            val name: String = navBackStackEntry.arguments?.getString("name") ?: ""
-//            val id: String = navBackStackEntry.arguments?.getString("id") ?: ""
-//            DetailScreen(
-//                navController = navController,
-//                pokeCoreData = PokeCoreDataCharacter(
-//                    id = id.toInt(), name = name
-//                )
-//            )
-//        }
-//    }
-
-
 }

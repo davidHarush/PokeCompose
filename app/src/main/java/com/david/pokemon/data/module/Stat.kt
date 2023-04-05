@@ -1,4 +1,4 @@
-package com.david.pokemon.data.mod
+package com.david.pokemon.data.module
 
 
 import com.google.gson.annotations.SerializedName
@@ -7,5 +7,5 @@ data class Stat(
     @SerializedName("base_stat")
     val baseStat: Int,
     val effort: Int,
-    val stat: StatX
+    val stat: StatX,
 )

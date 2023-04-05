@@ -6,8 +6,7 @@ data class PokeCoreDataCharacter(
 )
 
 fun PokeCoreDataCharacter.getImage() =
-//    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png"
-"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png"
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png"
 
 data class PokeCharacter(
     val coreData: PokeCoreDataCharacter,

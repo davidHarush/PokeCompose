@@ -30,22 +30,23 @@ fun NavigationGraph(navController: NavHostController, viewModel: MainViewModel =
             MainPagingScreen(navController = navController, pokePagingData)
         }
         composable(Screen.Favorites.route) {
-            Box (modifier =  Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(text = "Favorites", fontSize = 24.sp, color = Color.White)
             }
         }
 
-
         composable(Screen.Setting.route) {
-            Box (modifier =  Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(text = "Setting", fontSize = 24.sp, color = Color.White)
             }
         }
+
         composable(Screen.Search.route) {
-            Box (modifier =  Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(text = "Search", fontSize = 24.sp, color = Color.White)
             }
         }
+
         composable(
             route = Screen.Detail.route + "/{name}/{id}", arguments = listOf(
                 navArgument("name") {
@@ -61,9 +62,8 @@ fun NavigationGraph(navController: NavHostController, viewModel: MainViewModel =
             val name: String = navBackStackEntry.arguments?.getString("name") ?: ""
             val id: String = navBackStackEntry.arguments?.getString("id") ?: ""
             DetailScreen(
-                navController = navController,
                 pokeCoreData = PokeCoreDataCharacter(
-                    id = id.toString(), name = name
+                    id = id, name = name
                 )
             )
         }
