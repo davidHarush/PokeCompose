@@ -14,6 +14,8 @@ I'm sharing this repo as a template that can be used as a foundation for future 
 
 Have fun exploring and experimenting with PokeCompose!
 
+![GitHub stars](https://img.shields.io/github/languages/top/davidHarush/PokeCompose.svg)
+
 
 - 100% Kotlin
 - Compose
