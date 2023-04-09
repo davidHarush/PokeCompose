@@ -99,7 +99,6 @@ fun CharacterItem(
         ) {
             Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
                 PokeImage(character)
-//                PokedexEntry(character.getImage(), viewModel = viewModel)
                 Spacer(modifier = Modifier.width(24.dp))
                 Box {
                     Text(

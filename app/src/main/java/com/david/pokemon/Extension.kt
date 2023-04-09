@@ -11,19 +11,21 @@ import kotlinx.coroutines.launch
 
 fun ViewModel.runIoCoroutine(block: suspend CoroutineScope.() -> Unit) {
     viewModelScope.launch(
-        Dispatchers.IO +
-                CoroutineExceptionHandler { _, exception ->
-                    Log.i("viewModelCoroutine", "exception", exception)
-                }
-    ) {
+        Dispatchers.IO + coroutineExceptionHandler ) {
+        Log.i("ViewModel","runIoCoroutine")
+
+        block()
+    }
+}
+fun ViewModel.runDefaultCoroutine(block: suspend CoroutineScope.() -> Unit) {
+    viewModelScope.launch(
+        Dispatchers.Default+ coroutineExceptionHandler) {
+        Log.i("ViewModel","runDefaultCoroutine")
         block()
     }
 }
 
-fun Context.dpToPx(dp: Int): Int {
-    return (dp * resources.displayMetrics.density).toInt()
-}
-
-fun Context.pxToDp(px: Int): Int {
-    return (px / resources.displayMetrics.density).toInt()
-}
+private val coroutineExceptionHandler: CoroutineExceptionHandler
+    get() = CoroutineExceptionHandler { _, exception ->
+        Log.i("ViewModel", "ERR : " +exception.message, exception)
+    }

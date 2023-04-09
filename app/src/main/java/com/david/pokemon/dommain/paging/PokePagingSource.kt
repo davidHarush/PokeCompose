@@ -1,11 +1,13 @@
-package com.david.pokemon.dommain
+package com.david.pokemon.dommain.paging
 
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.david.pokemon.dommain.IPokeRepo
+import com.david.pokemon.dommain.PokeCoreDataCharacter
 
 class PokePagingSource(
-    private val pagingRepo: PokemonRepo,
+    private val pagingRepo: IPokeRepo,
 ) :
     PagingSource<Int, PokeCoreDataCharacter>() {
     override fun getRefreshKey(state: PagingState<Int, PokeCoreDataCharacter>): Int? {
@@ -29,7 +31,7 @@ class PokePagingSource(
         return try {
             val page = params.key ?: 0
             val offset = page * 20
-            val response = pagingRepo.getPokemonList(offset = offset)
+            val response = pagingRepo.getPokemonList(page)
             val pokeList = arrayListOf<PokeCoreDataCharacter>()
             response.collect {
                 it.forEach { poke ->
@@ -57,4 +59,5 @@ class PokePagingSource(
             LoadResult.Error(throwable = e)
         }
     }
+
 }

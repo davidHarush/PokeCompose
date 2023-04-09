@@ -1,11 +1,11 @@
 package com.david.pokemon.ui.screens.details
 
 import androidx.lifecycle.SavedStateHandle
-import com.david.pokemon.BaseViewModel
+import androidx.lifecycle.ViewModel
 import com.david.pokemon.UiState
 import com.david.pokemon.dommain.PokeCharacter
 import com.david.pokemon.dommain.PokeCoreDataCharacter
-import com.david.pokemon.dommain.PokemonRepo
+import com.david.pokemon.dommain.PokemonRepoImpl
 import com.david.pokemon.runIoCoroutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -15,9 +15,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val pokemonRepo: PokemonRepo,
+    private val pokemonRepoImpl: PokemonRepoImpl,
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel() {
+) : ViewModel() {
 
     private val name: String = checkNotNull(savedStateHandle["name"])
 
@@ -34,7 +34,7 @@ class DetailsViewModel @Inject constructor(
     private fun getPokemon(pokeCoreDataCharacter: PokeCoreDataCharacter) {
         runIoCoroutine {
             pokeState.emit(UiState.Loading)
-            renderData(pokemonRepo.getPokemon(pokeCoreDataCharacter))
+            renderData(pokemonRepoImpl.getPokemon(pokeCoreDataCharacter))
         }
     }
 

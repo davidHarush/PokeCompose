@@ -1,6 +1,7 @@
 package com.david.pokemon.ui.screens.navigation
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.*
 import androidx.compose.animation.core.animateDpAsState
@@ -12,22 +13,22 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.david.pokemon.ui.screens.search.SearchViewModel
 import com.david.pokemon.ui.theme.*
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun Navigation(navController: NavHostController) {
-    val cox = LocalContext.current
+fun Navigation(navController: NavHostController,  searchViewModel: SearchViewModel = hiltViewModel()) {
     Scaffold(
         bottomBar = {
             AnimatedVisibility(
@@ -43,20 +44,27 @@ fun Navigation(navController: NavHostController) {
                 .background(DeepBlue)
                 .fillMaxSize()
         ) {
+//            val searchTermState = rememberSaveable { mutableStateOf("") }
+
             NavigationGraph(navController = navController)
 
             if (isNeedToShowSearchBar(navController.currentBackStackEntryAsState())) {
-                SearchBar()
-                {
-                    if (it) {
-                        navController.navigate(Screen.Search.route)
-                    } else {
-                        navController.popBackStack()
+                SearchBar(
+                    searchViewModel = searchViewModel ,
+                    onSearchClicked = { isClick ->
+                        if (isClick) {
+                            navController.navigate(Screen.Search.route)
+                        } else {
+                            navController.popBackStack()
+                        }
+                    },
+                    onSearchTermChanged = { searchTerm ->
+//                        Log.i("dddddyyyy","1-> "+searchTerm)
+//                        searchViewModel.searchPoke(searchTerm)
+
                     }
-                }
+                )
             }
-
-
         }
     }
 }
@@ -132,7 +140,10 @@ public fun isNeedToShowSearchBar(stateNavBackStack: State<NavBackStackEntry?>): 
 @Composable
 fun SearchBar(
     onSearchClicked: (Boolean) -> Unit,
-) {
+    onSearchTermChanged: (String) -> Unit,
+    searchViewModel: SearchViewModel,
+
+    ) {
     BoxWithConstraints {
         val maxWidth = constraints.maxWidth
         val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
@@ -183,7 +194,12 @@ fun SearchBar(
                     ) {
                         TextField(
                             value = searchText,
-                            onValueChange = { setSearchText(it) },
+                            onValueChange = { text->
+                                Log.i("dddyyy", "text changed: $text")
+                                searchViewModel.searchPoke(text.trim())
+//                                onSearchTermChanged(text)
+                                setSearchText(text)
+                            },
                             modifier = Modifier
                                 .fillMaxWidth(0.9f)
                                 .align(Alignment.CenterStart),
@@ -205,7 +221,6 @@ fun SearchBar(
                                 setIsExpanded(!isExpanded)
                                 setSearchText("")
                                 onSearchClicked(false)
-
                             }
                         ) {
                             Icon(
