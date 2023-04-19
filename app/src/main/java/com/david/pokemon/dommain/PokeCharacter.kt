@@ -13,11 +13,19 @@ data class PokeCharacter(
     val stats: List<Stat>,
     val height: Int,
     val weight: Int,
-    val baseExperience: Int,
+    val experience: Int,
 ) {
     override fun toString(): String {
 
         return "${coreData.name} {stats:  $stats}"
+    }
+
+    companion object {
+        fun getEmpty(): PokeCharacter = PokeCharacter(
+            height = 0,
+            weight = 0, experience = 0,
+            coreData = PokeCoreDataCharacter("-1", "EMPTY"), stats = emptyList()
+        )
     }
 }
 

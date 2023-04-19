@@ -116,7 +116,7 @@ fun DetailData(character: PokeCharacter) {
             DetailCard {
                 DetailText(text = "Weight: ${character.weight}")
                 DetailText(text = "Height: " + character.height.toString())
-                DetailText(text = "Base Experience: " + character.baseExperience)
+                DetailText(text = "Experience: " + character.experience)
             }
         }
 

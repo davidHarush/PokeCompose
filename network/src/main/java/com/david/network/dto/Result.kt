@@ -1,7 +1,9 @@
-package com.david.pokemon.data.module
+package com.david.network.dto
+import kotlinx.serialization.Serializable
 
 import androidx.core.text.isDigitsOnly
 
+@Serializable
 data class Result(
     val name: String,
     val url: String,
