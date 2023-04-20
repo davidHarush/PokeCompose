@@ -6,12 +6,11 @@ PokeCompose demonstrates Android development with Hilt, Coroutines, Flow, Jetpac
 
 
 <p align="center">
-  <img src="https://img.shields.io/github/languages/top/davidHarush/PokeCompose.svg" alt="GitHub top language">
-  <img src="https://img.shields.io/badge/API-30%2B-brightgreen.svg?style=flat" alt="API level">
+<img src="https://img.shields.io/github/languages/top/davidHarush/PokeCompose.svg" alt="GitHub top language">
+<img src="https://img.shields.io/badge/API-30%2B-brightgreen.svg?style=flat" alt="API level">
 <img src="https://www.codefactor.io/repository/github/davidharush/pokecompose/badge" alt="CodeFactor" />
- <img src="https://img.shields.io/github/repo-size/davidHarush/pokecompose" alt="GitHub repo size">
-  <img src="https://img.shields.io/github/issues/davidHarush/pokecompose" alt="GitHub issues">
-
+<img src="https://img.shields.io/github/repo-size/davidHarush/pokecompose" alt="GitHub repo size">
+<img src="https://img.shields.io/github/issues/davidHarush/pokecompose" alt="GitHub issues">
 </p>
 
 
