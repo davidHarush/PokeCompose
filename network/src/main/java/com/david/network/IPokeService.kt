@@ -11,12 +11,10 @@ import io.ktor.http.ContentType.Application.Json
 
 interface IPokeService {
 
-
     suspend fun getPokemonList(
        offset: Int,
        limit: Int,
     ): PokemonList?
-
 
     suspend fun getPokemonInfo(name: String): Pokemon?
 

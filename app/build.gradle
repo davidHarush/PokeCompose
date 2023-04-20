@@ -51,7 +51,7 @@ android {
 
 dependencies {
 
-    api project(path : ':network' )
+    api project(path: ':network')
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
@@ -121,11 +121,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha01"
     implementation "androidx.activity:activity-ktx:1.6.0-rc01"
     implementation "androidx.palette:palette-ktx:1.0.0"
-
-
-
-
-
 
 
 }

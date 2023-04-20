@@ -34,7 +34,7 @@ class PokemonRepo @Inject constructor(
 
     suspend fun getPokemon(pokeCoreDataCharacter: PokeCoreDataCharacter) = flow {
         val pokemon = service.getPokemonInfo(pokeCoreDataCharacter.id)
-        if(pokemon == null){
+        if (pokemon == null) {
             emit(PokeCharacter.getEmpty())
         }
 

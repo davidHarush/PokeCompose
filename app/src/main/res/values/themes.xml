@@ -10,7 +10,7 @@
         <item name="windowSplashScreenBackground">@color/deepblue</item>
         <item name="windowSplashScreenIconBackgroundColor">@color/deepblue</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/pikachu</item>
-       <item name="postSplashScreenTheme">@style/Theme.Pokemon</item>
+        <item name="postSplashScreenTheme">@style/Theme.Pokemon</item>
     </style>
 
 </resources>

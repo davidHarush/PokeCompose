@@ -11,7 +11,11 @@ import kotlinx.serialization.json.Json
 
 class PokeServiceImpl(
     private val client: HttpClient,
-    private val json: Json = Json { ignoreUnknownKeys = true }
+    private val json: Json = Json {
+        ignoreUnknownKeys = true
+        isLenient = true
+        prettyPrint = true
+    }
 ) : IPokeService {
 
 
@@ -35,6 +39,7 @@ class PokeServiceImpl(
             val pokeResult : String =  client.get {
                 url(HttpRoutes.POKEMON + "/"+name)
             }
+
            json.decodeFromString(string = pokeResult, deserializer =  Pokemon.serializer())
 
         } catch (e: Exception) {
