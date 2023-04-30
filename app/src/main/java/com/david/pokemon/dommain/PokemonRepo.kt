@@ -13,8 +13,8 @@ class PokemonRepo @Inject constructor(
 
     private val service = IPokeService.create()
 
-    suspend fun getPokemonList(offset: Int = 0): Flow<ArrayList<PokeCoreDataCharacter>> = flow {
-        val re = service.getPokemonList(offset = offset, limit = 20)
+    suspend fun getPokemonList(page: Int = 0): Flow<ArrayList<PokeCoreDataCharacter>> = flow {
+        val re = service.getPokemonPage(page = page)
         emit(convertPokemonList(re?.results))
     }
 

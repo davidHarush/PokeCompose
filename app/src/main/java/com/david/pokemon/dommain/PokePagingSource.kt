@@ -3,6 +3,7 @@ package com.david.pokemon.dommain
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.david.network.MAX_PAGE
 
 class PokePagingSource(
     private val pagingRepo: PokemonRepo,
@@ -27,13 +28,13 @@ class PokePagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PokeCoreDataCharacter> {
 
         return try {
-            val page = params.key ?: 0
-            val offset = page * 20
-            val response = pagingRepo.getPokemonList(offset = offset)
+
+            val page = (params.key ?: 0).coerceIn(0, MAX_PAGE)
+
+            val response = pagingRepo.getPokemonList(page = page)
             val pokeList = arrayListOf<PokeCoreDataCharacter>()
             response.collect {
                 it.forEach { poke ->
-
                     pokeList.add(
                         element = PokeCoreDataCharacter(
                             id = poke.id,

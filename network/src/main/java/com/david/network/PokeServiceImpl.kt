@@ -33,6 +33,33 @@ class PokeServiceImpl(
 
     }
 
+    override suspend fun getPokemonPage(page: Int ): PokemonList? {
+        return try {
+            client.get {
+                url(HttpRoutes.POKEMON)
+                parameter(HttpRoutes.limit, PAGE_SIZE)
+                parameter(HttpRoutes.offset, page * PAGE_SIZE)
+            }
+        } catch (e: Exception) {
+            handleException(e)
+            null
+        }
+    }
+
+    override suspend fun getAllPokemons(): PokemonList? {
+        return try {
+            client.get {
+                url(HttpRoutes.POKEMON)
+                parameter(HttpRoutes.limit, 0)
+                parameter(HttpRoutes.offset, 1000)
+            }
+        } catch (e: Exception) {
+            handleException(e)
+            null
+        }
+
+    }
+
     override suspend fun getPokemonInfo(name: String): Pokemon {
         return try {
 
@@ -44,6 +71,7 @@ class PokeServiceImpl(
 
         } catch (e: Exception) {
             handleException(e)
+
             Pokemon(experience = 0, height = 0, id = 0,
                 name = "", order = 0,
                 stats = emptyList(), weight = 0)
